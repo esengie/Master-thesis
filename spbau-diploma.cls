@@ -90,6 +90,9 @@
 %% Параметры заполнения титульного листа
 \usepackage{xkeyval}
 
+%% Правила вывода
+\usepackage{bussproofs}
+
 %% Русскоязычный вариант
 \define@key[ru]{mytitle}{university}{\def\my@title@university@ru{#1}}
 \define@key[ru]{mytitle}{faculty}{\def\my@title@faculty@ru{#1}}

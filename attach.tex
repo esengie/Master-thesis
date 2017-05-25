@@ -5,8 +5,36 @@
 
 \subsection{Доказательство корректности функции sort}\label{sort_proof}
 
-\cite{ncat:tt-ct}
+Ниже показан пример доказательства того, что функция filter выдает подсписок исходного списка.
+Код написан на Agda\cite{agda}
 
-% \subsection{сама генерация кода - просто описать exts + структуру}
+\begin{lstlisting}
+-- Определяем предикат принадлежности элемента списку.
+data _∈_ {A : Set} (a : A) : List A → Set where
+  here : (xs : List A) -> a ∈ (a ∷ xs)
+  there : (x : A) (xs : List A) -> a ∈ xs -> a ∈ (x ∷ xs)
 
-\subsection{Алгебраические теории}\label{alg_th}
+-- Определяем предикат xs ⊆ ys, означающий "список xs является подсписком ys".
+data _⊆_ {A : Set} : List A -> List A → Set where
+    nil : [] ⊆ []
+    larger : {y : A} {xs ys : List A} -> xs ⊆ ys -> xs ⊆ (y ∷ ys)
+    cons  : {x : A} {xs ys : List A} -> xs ⊆ ys -> (x ∷ xs) ⊆ (x ∷ ys)
+
+-- Докажем, что filter xs ⊆ xs для любого списка xs.
+filter' : {A : Set} -> (A → Bool) → List A → List A
+filter' p [] = []
+filter' p (x ∷ xs) = if p x then x ∷ filter' p xs else filter' p xs
+
+filterLess : {A : Set} -> (p : A -> Bool) -> (xs : List A) -> filter' p xs ⊆ xs
+filterLess p [] = nil
+filterLess p (x ∷ xs) with p x
+filterLess p (x ∷ xs) | false = larger (filterLess p xs)
+filterLess p (x ∷ xs) | true = cons (filterLess p xs)
+
+\end{lstlisting}
+
+\subsection{Индексы де Брейна}\label{de_brujin}
+ % Описание самих индексов и альфа эквивалентности и подстановки
+
+
+%--
