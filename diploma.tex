@@ -7,7 +7,7 @@
 % Если англоязычная титульная страница не нужна, то ее можно просто удалить.
 \filltitle{ru}{
     chair              = {Кафедра математических и информационных технологий},
-    title              = {Пустое подмножество как замкнутое множество},
+    title              = {Генерация зависимых языков по спецификации пользователя},
     % Здесь указывается тип работы. Возможные значения:
     %   coursework - Курсовая работа
     %   diploma - Диплом специалиста
@@ -15,12 +15,12 @@
     %   bachelor - Диплом бакалавра
     type               = {master},
     position           = {студента},
-    group              = 666,
-    author             = {Машкин Эдельвейс Захарович},
-    supervisorPosition = {д.\,ф.-м.\,н., профессор},
-    supervisor         = {Выбегалло А.\,А.},
-    reviewerPosition   = {ст. преп.},
-    reviewer           = {Привалов А.\,И.},
+    group              = 604,
+    author             = {Гарифуллин Шамиль Раифович},
+    supervisorPosition = {аспирант},
+    supervisor         = {Исаев В.\,И.},
+    reviewerPosition   = {аспирант},
+    reviewer           = {Подкопаев А.\,В.},
     chairHeadPosition  = {д.\,ф.-м.\,н., профессор},
     chairHead          = {Омельченко А.\,В.},
     % university = {САНКТ-ПЕТЕРБУРГСКИЙ АКАДЕМИЧЕСКИЙ УНИВЕРСИТЕТ},
@@ -30,12 +30,12 @@
 }
 \filltitle{en}{
     chair              = {Department of Mathematics and Information Technology},
-    title              = {Empty subset as closed set},
-    author             = {Edelweis Mashkin},
-    supervisorPosition = {professor},
-    supervisor         = {Amvrosy Vibegallo},
-    reviewerPosition   = {assistant},
-    reviewer           = {Alexander Privalov},
+    title              = {Specification based generation of languages with dependent types},
+    author             = {Shamil Garifullin},
+    supervisorPosition = {PhD student},
+    supervisor         = {Valeriy Isaev},
+    reviewerPosition   = {PhD student},
+    reviewer           = {Anton Podkopaev},
     chairHeadPosition  = {professor},
     chairHead          = {Alexander Omelchenko},
 }
@@ -43,28 +43,31 @@
 \tableofcontents
 % У введения нет номера главы
 \section*{Введение}
+Языки программирования с зависимыми типами могут быть использованы для доказательств свойств кода программы. Также возможно ввести типы аналогичные сущностям области математики в которой мы хотим доказывать теоремы и просто писать термы, таким образом предъявляя доказательства утверждений. Плюс данного подхода заключается в том, что проверка доказательств перекладывается на тайпчекер.
 
-\begin{equation}
-\label{лопиталь}
-\lim_{x\to a}\frac{f(x)}{g(x)} = \lim_{x\to a} \frac{f'(x)}{g'(x)}
-\end{equation}
+Однако сами языки программирования, являясь достаточно общими, часто содержат слишком много конструкций для интересующей нас области, и приходится ограничивать язык на котором мы пишем. Также может быть такая ситуация, что конструкции, которыми мы хотим пользоватсья, не существуют в языке программирования. Поэтому если мы хотим переложить проверку наших высказываний на тайпчекер приходится писать свой язык программирования и уже в нем доказывать утверждения.
 
+Решение описанной проблемы - генерация зависимых языков по спецификации конструкций, которые мы хотим от нашего языка является темой данной работы.
 
-% Рисунок, размещенный с предпочтением "вверху страницы"
-\begin{figure}[t]
-\centering
-\includegraphics{img/fig1.jpg}
-\caption{Разрыв функции}
-\label{разрыв_функции}
-\end{figure}
+\section{Постановка задачи}
 
-\input{deptypes}
-\input{langSpec}
-\input{genLang}
+Целью данной работы является дизайн и имплементация языка для спецификации языков программирования с зависимыми типами. Ключевые задачи которые решает работа:
+\begin{itemize}
+  \item Сужение множества возможных спецификаций зависимых языков, для того чтобы была возможна генерация тайпчекера
+  \item Реализация генерации структур данных представления языка и функций манипуляции этими структурами.
+  \item Реализация генерации функций приведения термов специфицированного языка в нормальную форму и проверки типов.
+\end{itemize}
+
+\input{intro_deptypes}
+\input{lang_spec}
+\input{gen_lang}
 
 % У заключения нет номера главы
 \section*{Заключение}
 
 \bibliographystyle{ugost2008ls}
 \bibliography{diploma}
+
+\input{attach}
+
 \end{document}
