@@ -1,6 +1,6 @@
 \appendix
 \section*{Приложения}
-\addcontentsline{toc}{section}{Приложения}
+% \addcontentsline{toc}{section}{Приложения}
 \renewcommand{\thesubsection}{\Alph{subsection}}
 
 \subsection{Доказательство корректности функции sort}\label{sort_proof}
@@ -33,5 +33,9 @@ filterLess p (x ∷ xs) | true = cons (filterLess p xs)
 
 \end{lstlisting}
 
+\subsection{Проверка использования метапеременных в функциональном символе}\label{toposort}
+В секции~\ref{lang_spec} описывался язык и ограничения налагаемые на спецификации.
+
+Здесь описан алгоритм проверки использвания метапеременных в контекстах других метапеременных.
 
 %--

@@ -315,3 +315,9 @@
 
 \let\savenumberline\numberline
 \def\numberline#1{\savenumberline{#1.}}
+
+
+\lstset{
+breaklines,
+breakatwhitespace
+}

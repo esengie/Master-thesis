@@ -1,0 +1,23 @@
+\subsection{Вывод типов и нормализация}
+Сам infer работает как описано в Секции~\ref{typecheck}. Функция nf пытается паттернматчиться, если это не выходит, то данная редукция неприменима\footnote{Такой паттернматчинг невозможен с использованием библиотеки bound\cite{bound}, поэтому был написан модуль SimpleBound c обычными индексами де Брейна.}.
+
+\begin{lstlisting}[caption={Пример правила вывода и части сгенерированной функции infer, соответствующей этому правилу},captionpos=b]
+TApp =
+    forall t1 : tm, t2 : tm, S : ty, x.T : ty
+      |- t1 : pi(S, x.T),
+      |- t2 : S,
+      x : S |- T def
+      |------------------------------
+      |- app(t1 , t2, x.T) : T[x:=t2]
+
+infer ctx (App v1 v2 v3)
+  = do v4 <- infer ctx v2
+       v5 <- pure (nf v4)
+       v6 <- infer ctx v1
+       checkEq (Pi v5 (toScope (fromScope v3))) v6
+       checkT ctx TyDef v5
+       checkT (consCtx v5 ctx) TyDef (fromScope v3)
+       infer ctx v1
+       infer ctx v2
+       pure (instantiate v2 (toScope (fromScope v3)))
+\end{lstlisting}
