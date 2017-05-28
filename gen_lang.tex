@@ -15,8 +15,10 @@ Axiom   :   Header '=' '\t' Forall '\t'
               { Axiom (snd $1) (fst $1) [] $4 $6 }
 \end{lstlisting}
 
-\subsection{Индексы де Брейна и их проблемы(задачки с индексами)}\label{de_brujin_impl}
+Все изменения связанные с грамматикой языка проводились на уровне спецификации AST.
 
+\input{impl/toposort}
+\input{impl/de_brujin}
 \input{impl/build_exp}
 \input{impl/infer_nf}
 
