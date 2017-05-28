@@ -1,14 +1,16 @@
 \documentclass[14pt]{beamer}
 
 \usepackage[T2A]{fontenc}
-\usepackage{fontspec}
 \usepackage[utf8]{inputenc}
-\usepackage[english,russian]{babel}
+% \usepackage[english,russian]{babel}
 
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+
+\usepackage{fontspec}
 \setmainfont[Mapping=tex-text]{CMU Serif}
 \setsansfont{CMU Sans Serif}
-% \setmonofont{CMU Typewriter Text}
-
+\setmonofont{CMU Typewriter Text}
 
 \usepackage{amssymb,amsfonts,amsmath,mathtext}
 \usepackage{bussproofs}
@@ -16,6 +18,7 @@
 \usepackage{anyfontsize}
 
 \usepackage{enumerate,float,indentfirst}
+\usepackage{listings, csquotes}
 
 \usepackage[
 backend=biber,
@@ -49,8 +52,8 @@ sorting=ynt
 
 \title{\small{Генерация зависимых языков по спецификации пользователя}}
 \author{\small{%
-\emph{Выступающий:}~Шамиль Гарифуллин\\%
-\emph{Руководитель:}~Валерий Исаев}\\%
+\emph{Выступающий:}~Гарифуллин Шамиль Раифович\\%
+\emph{Руководитель:}~Исаев Валерий Иванович}\\%
 \vspace{30pt}%
 Санкт-Петербургский Академический Университет%
 \vspace{20pt}%
@@ -62,29 +65,22 @@ sorting=ynt
 \maketitle
 
 \begin{frame}
-\frametitle{Соответствие Карри-Говарда}
-Описаны в \cite{palmgren2007partial, isaev2016algebraic}\\
+\frametitle{Введение}
+Языки с зависимыми типами --- типы могут зависеть от термов.
 
-\emph{Сигнатура} -- пара $(\mathcal{S},\mathcal{F})$,
-    $\mathcal{S}$ -- произвольное множество, $\mathcal{F}$ -- множество и функция,
-    которая каждому $f \in \mathcal{F}$ сопоставляет его тип
+Одна из частых ошибок при программировнии на языке Haskell --- взятие первого элемента пустого списка.
+% \begin{lstlisting}
+% head :: [a] -> a
+% head (x:_) = x
+% head [] = error "No head!"
+% \end{lstlisting}
 
-\begin{center}
-\AxiomC{}
-\RightLabel{, $x \in Var$, $x : s$}
-\UnaryInfC{$x : s$}
-\DisplayProof
-\end{center}
+sdlfsd
 
-\begin{center}
-\AxiomC{$t_1 : s_1$}
-\AxiomC{\ldots}
-\AxiomC{$t_n : s_n$}
-\RightLabel{, $f : s_1 \times \ldots \times s_n \to s$}
-\TrinaryInfC{$f(t_1, \ldots t_n) : s$}
-\DisplayProof
-\end{center}
-
+% \begin{lstlisting}
+% head :: {n : N} -> Vec a (suc n) -> a
+% head (x:_) = x
+% \end{lstlisting}
 \end{frame}
 
 
@@ -92,10 +88,10 @@ sorting=ynt
 \frametitle{Пример определения языка - теории в тт}
 \emph{Формула} в сигнатуре $\Sigma$ -- это выражение вида $t = t'$, где $t$ и $t'$ -- термы сигнатуры $\Sigma$ одного сорта.
 
-\begin{figure}[H]
-  \center
-  \includegraphics[width=1.0\linewidth]{vlai}
-\end{figure}
+% \begin{figure}[H]
+%   \center
+%   \includegraphics[width=1.0\linewidth]{vlai}
+% \end{figure}
 \end{frame}
 
 
@@ -103,10 +99,10 @@ sorting=ynt
 \frametitle{Зависимые языки - веселый пример из тт}
 \emph{Формула} в сигнатуре $\Sigma$ -- это выражение вида $t = t'$, где $t$ и $t'$ -- термы сигнатуры $\Sigma$ одного сорта.
 
-\begin{figure}[H]
-  \center
-  \includegraphics[width=1.0\linewidth]{vlai}
-\end{figure}
+% \begin{figure}[H]
+%   \center
+%   \includegraphics[width=1.0\linewidth]{vlai}
+% \end{figure}
 \end{frame}
 
 \begin{frame}
@@ -148,10 +144,10 @@ sorting=ynt
 
 \begin{frame}
 \frametitle{Генерация языка - смотрим и все рекурсивно определено}
-\begin{figure}[H]
-  \center
-  \includegraphics[width=1.0\linewidth]{vlai2}
-\end{figure}
+% \begin{figure}[H]
+%   \center
+%   \includegraphics[width=1.0\linewidth]{vlai2}
+% \end{figure}
 \end{frame}
 
 
@@ -159,7 +155,7 @@ sorting=ynt
 \frametitle{Индексы де брейна - опиши проблемы подстановки и альфа равенства, опиши классность на уровне типов, опиши контексты}
 \begin{itemize} %[<+->]
   \item Реализованы новые правила вывода
-  \item Возможность добавлять пользовательские правила \cite{swierstra2008data, bahr2014composing}
+  \item Возможность добавлять пользовательские правила
   \item type MyProof = (Rule :+: Trans :+: AxiomRule) Axioms Sort Fun
   \item Общий Pretty Printing расширяемый пользователем
 \end{itemize}
@@ -186,7 +182,7 @@ sorting=ynt
 \end{itemize}
 \end{frame}
 
-\begin{frame}[shrink=20]
+\begin{frame} %[shrink=20]
 \frametitle{Список литературы}
 \printbibliography
 \end{frame}
