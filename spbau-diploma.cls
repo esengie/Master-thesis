@@ -46,7 +46,8 @@
 \setsansfont{CMU Sans Serif}
 \setmonofont{CMU Typewriter Text}
 
-\usepackage{listings}
+% \usepackage{listings}
+\usepackage{listingsutf8}
 % Поля настраиваются командами \newgeometry во время и после генерации титульных
 % страниц и
 \usepackage[a4paper]{geometry}
@@ -319,5 +320,9 @@
 
 \lstset{
 breaklines,
-breakatwhitespace
+breakatwhitespace,
+extendedchars=true,
+literate=%
+  {lam}{{$\lambda$}}{1}
+  {→}{\rightarrow}{2}
 }

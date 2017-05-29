@@ -2,7 +2,7 @@
 %	PRESENTATION SLIDES
 %----------------------------------------------------------------------------------------
 
-\begin{frame}[fragile] 
+\begin{frame}[fragile]
 \frametitle{Введение}
 Языки с зависимыми типами --- типы могут зависеть от термов.
 
@@ -14,7 +14,7 @@ head (x:_) = x
 head [] = error "No head!"
 \end{verbatim}
 
-sdlfsd
+Эту проблему легко решить
 
 \begin{verbatim}
 head :: {n : N} -> Vec a (suc n) -> a
@@ -28,55 +28,59 @@ head (x:_) = x
 
 \begin{frame}
 \frametitle{Цели и задачи}
+Реализовать генерацию тайпчекера и вычислителя языка по спецификации.
+
 \begin{itemize}
-\item Lorem ipsum dolor sit amet, consectetur adipiscing elit
-\item Aliquam blandit faucibus nisi, sit amet dapibus enim tempus eu
-\item Nulla commodo, erat quis gravida posuere, elit lacus lobortis est, quis porttitor odio mauris at libero
-\item Nam cursus est eget velit posuere pellentesque
-\item Vestibulum faucibus velit a augue condimentum quis convallis nulla gravida
+\item Дизайн языка спецификации
+\item Выбор внутреннего представления и генерация структур данных конструкций языка
+\item Генерация тайпчекера и функции нормализации
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------
-
 \begin{frame}
-\frametitle{Blocks of Highlighted Text}
-\begin{block}{Block 1}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
-\end{block}
-
+\frametitle{Аналоги?}
+Пример норм языка
 \end{frame}
-
 %------------------------------------------------
-
 \begin{frame}
-\frametitle{Theorem}
-\begin{theorem}[Mass--energy equivalence]
-$E = mc^2$
-\end{theorem}
+\frametitle{Язык спецификации}
+\begin{center}
+\AxiomC{$\Gamma, x : S \vdash T\ type $}
+\AxiomC{$\Gamma, \vdash f : pi(S, T) $}
+\AxiomC{$\Gamma \vdash t : S $}
+\TrinaryInfC{$\Gamma \vdash app(f, t, T) : T[x:=t]$}
+\DisplayProof
+\end{center}
+Пример норм языка
 \end{frame}
-
 %------------------------------------------------
-
-\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
-\frametitle{Verbatim}
-\begin{example}[Theorem Slide Code]
+\begin{frame}[fragile]
+\frametitle{Язык спецификации}
 \begin{verbatim}
-\begin{frame}
-\frametitle{Theorem}
-\begin{theorem}[Mass--energy equivalence]
-$E = mc^2$
-\end{theorem}
-\end{frame}\end{verbatim}
-\end{example}
+Наше представление
+\end{verbatim}
 \end{frame}
-
 %------------------------------------------------
-
 \begin{frame}
-\frametitle{Figure}
-Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
-%\begin{figure}
-%\includegraphics[width=0.8\linewidth]{test}
-%\end{figure}
+\frametitle{Ограничения накладываемые языком?}
+\begin{itemize}
+\item Топосорт
+\item Проверка типов и проч
+\item Идея в том что этим мы отличаемся от всяких LF
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Внутреннее представление}
+Индексы де Брейна?
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Генерация кода}
+Индексы де Брейна?
+\end{frame}
+%------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Пример кода?}
+
 \end{frame}
