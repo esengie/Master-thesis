@@ -32,4 +32,22 @@ filterLess p (x :: xs) | true = cons (filterLess p xs)
 \subsection{Ссылка на исходный код}\label{source_code}
 Имплементация работы описанной в дипломе находится на \href{https://github.com/esengie/fpl-exploration-tool}{репозитории на гитхаб}: \url{github.com/esengie/fpl-exploration-tool}
 
+\subsection{Спецификация $\lambda\Pi$ с булевыми выражениями и сгенерирванный код}\label{lambdaPiSpec}
+
+% redefine \VerbatimInput
+\RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{
+ %
+ frame=lines,  % top and bottom rule only
+ framesep=2em, % separation between frame and text
+ rulecolor=\color{Gray},
+ %
+ labelposition=topline,
+ %
+ commentchar=*        % comment character
+}
+
+\VerbatimInput[label=\fbox{\color{Black}lambdaPi.fpl}]{"code/lambdaPi.fpl"}
+\VerbatimInput[label=\fbox{\color{Black}Lang.hs}]{"code/Lang.hs"}
+
 %--

@@ -1,0 +1,34 @@
+DependentSorts :
+  tm, ty
+FunctionalSymbols :
+Axioms :
+  Tr =
+    |--- |- true : bool
+  Fls =
+    |--- |- false : bool
+  Bool =
+    |--- |- bool def
+  If-then =
+    forall t : tm, t1 : tm, t2 : tm, x.A : ty
+      x : bool |- A def, |- t1 : A[x:=true],
+      |- t2 : A[x:=false], |- t : bool
+      |--- |- if(x.A, t, t1, t2) : A[x:=t]
+  K-Pi =
+    forall T1 : ty , x.T2 : ty
+      x : T1 |- T2 def |--- |- pi(T1, x.T2) def
+  TAbs =
+    forall S : ty , x.T : ty , x.t : tm
+      x : S |- t : T |--- |- lam(S , x.t) : pi(S , x.T)
+  TApp =
+    forall t1 : tm , t2 : tm , S : ty, x.T : ty
+      |- t1 : pi(S, x.T) , |- t2 : S , x : S |- T def |---- |- app(t1 , t2, x.T) : T[x:=t2]
+Reductions :
+  Beta =
+    forall x.b : tm, A : ty, a : tm, z.T : ty
+       |--- |- app(lam(A , x.b), a, z.T) => b[x := a] -- : T[z:=a]
+  IfRed1 =
+    forall x.A : ty, f : tm , g : tm
+      |--- |- if(x.A, true, f, g) => f : A[x:=true]
+  IfRed2 =
+    forall x.A : ty, f : tm , g : tm
+      |--- |- if(x.A, false, f, g) => g : A[x:=true]

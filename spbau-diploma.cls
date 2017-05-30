@@ -317,12 +317,15 @@
 \let\savenumberline\numberline
 \def\numberline#1{\savenumberline{#1.}}
 
-
 \lstset{
 breaklines,
 breakatwhitespace,
 extendedchars=true,
 literate=%
-  {lam}{{$\lambda$}}{1}
+  {lamb}{{$\lambda$}}{1}
   {→}{\rightarrow}{2}
 }
+
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyvrb}
