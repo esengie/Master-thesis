@@ -318,8 +318,8 @@
 \def\numberline#1{\savenumberline{#1.}}
 
 \lstset{
-%breaklines,
-%breakatwhitespace,
+breaklines,
+breakatwhitespace,
 extendedchars=true,
 literate=%
   {lamb}{{$\lambda$}}{1}
