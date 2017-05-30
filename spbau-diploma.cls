@@ -47,7 +47,7 @@
 \setmonofont{CMU Typewriter Text}
 
 % \usepackage{listings}
-\usepackage{listingsutf8, float}
+\usepackage{listingsutf8}
 % Поля настраиваются командами \newgeometry во время и после генерации титульных
 % страниц и
 \usepackage[a4paper]{geometry}
@@ -330,5 +330,5 @@ literate=%
 \usepackage{fancyvrb}
 
 \usepackage{etoolbox}
-\BeforeBeginEnvironment{listings}{\par\noindent\begin{minipage}{\linewidth}}
-\AfterEndEnvironment{listings}{\end{minipage}\par\addvspace{\topskip}}
+\BeforeBeginEnvironment{listingsutf8}{\par\noindent\begin{minipage}{\linewidth}}
+\AfterEndEnvironment{listingsutf8}{\end{minipage}\par\addvspace{\topskip}}

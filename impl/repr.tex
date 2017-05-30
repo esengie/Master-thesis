@@ -11,7 +11,6 @@ data CodeGen = Gen{
 
 При генерации каждой отдельной декларации функций infer и nf создается внутренная монада BldRM, которая определена как \lstinline{StateT Q (ErrorM)}.
 
-
 \begin{lstlisting}[caption={Структура используемая при кодогенерации функции infer},captionpos=b,frame=single]
 data Q = Q {
   _count :: Int,
@@ -30,9 +29,7 @@ data Juds = Juds {
 }
 \end{lstlisting}
 
-
 Для простоты реализации так же как и в модуле проверки корректности спецификации (Секция~\ref{sortcheck}) использована библиотека lens\cite{lens}. Что позволяет писать следующие функции в Haskell, например при манипуляции State (использование кода, выглядещего императивно):
-
 
 \begin{lstlisting}[frame=single]
 appendStmt :: Stmt -> BldRM ()
@@ -45,7 +42,6 @@ genCheckMetaEq = do
   -- Replaces metas inside State Monad
   metas <~ sequence (genMetaEq <$> ms)
 \end{lstlisting}
-
 
 Структура Q содержит всю информацию, нужную для генерации определения функций infer и nf. Так как весь код который генерируется будет исполнятся внутри монады c возможностью обработки ошибок, можно просто сгенерировать список выражений Haskell, а затем приписать сверху do, таким образом будет обеспечен порядок выполнения выражений.
 
