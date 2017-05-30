@@ -3,6 +3,7 @@
 
 А State нужен, так как в ходе работы алгоритма постепенно заполняется таблица определений языка спецификации.
 
+
 \begin{lstlisting}[caption={Структура заполняемая модулем проверки спецификации},captionpos=b,frame=single, label={SymTab}]
 data SymbolTable = SymbolTable {
   stabs         :: AST.Stab
@@ -14,6 +15,7 @@ data SymbolTable = SymbolTable {
 , iSymAxiomMap  :: Map AST.Name AST.Name -- intro axioms of funSyms
 }
 \end{lstlisting}
+
 
 Изначально заполняются множества зависимых и независимых сортов. Затем происходит проверка и заполнение определения функций.
 

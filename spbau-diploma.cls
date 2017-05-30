@@ -47,7 +47,7 @@
 \setmonofont{CMU Typewriter Text}
 
 % \usepackage{listings}
-\usepackage{listingsutf8}
+\usepackage{listingsutf8, float}
 % Поля настраиваются командами \newgeometry во время и после генерации титульных
 % страниц и
 \usepackage[a4paper]{geometry}
@@ -318,14 +318,17 @@
 \def\numberline#1{\savenumberline{#1.}}
 
 \lstset{
-breaklines,
-breakatwhitespace,
+%breaklines,
+%breakatwhitespace,
 extendedchars=true,
 literate=%
   {lamb}{{$\lambda$}}{1}
   {→}{\rightarrow}{2}
 }
 
-
 \usepackage[dvipsnames]{xcolor}
 \usepackage{fancyvrb}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{listings}{\par\noindent\begin{minipage}{\linewidth}}
+\AfterEndEnvironment{listings}{\end{minipage}\par\addvspace{\topskip}}
