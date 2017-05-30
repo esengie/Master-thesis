@@ -8,7 +8,7 @@
 Ниже показан пример доказательства того, что функция filter выдает подсписок исходного списка.
 Код написан на Agda\cite{agda}.
 
-\begin{lstlisting}[caption={Определяем предикат означающий "список xs является подсписком ys"},captionpos=b]
+\begin{lstlisting}[caption={Определяем предикат означающий "список xs является подсписком ys"},captionpos=b, frame=single]
 data _in_ {A : Set} : List A → List A → Set where
     nil : [] in []
     larger : {y : A} {xs ys : List A} → xs in ys → xs in (y :: ys)
@@ -16,7 +16,7 @@ data _in_ {A : Set} : List A → List A → Set where
 \end{lstlisting}
 
 
-\begin{lstlisting}[caption={Докажем, что filter xs подсписок xs для любого списка xs},captionpos=b]
+\begin{lstlisting}[caption={Докажем, что filter xs подсписок xs для любого списка xs},captionpos=b, frame=single]
 filter' : {A : Set} → (A → Bool) → List A → List A
 filter' p [] = []
 filter' p (x :: xs) = if p x then x :: filter' p xs else filter' p xs

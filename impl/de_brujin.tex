@@ -3,7 +3,7 @@
 
 Эту проблему можно решить с помощью полиморфной рекурсии\cite{Bird:Pat}. По сути, каждый раз когда мы абстрагируемся по переменной в представлении де Брейна, мы добавляем единицу ко всем связанным переменным внутри терма. Ключевым наблюдением является то, что мы можем добавлять единицу оборачивая терм в Maybe. Например:
 
-\begin{lstlisting}
+\begin{lstlisting}[frame=single]
 data Term a
   = Var a
   | App (Term a) (Term a)
@@ -12,7 +12,7 @@ data Term a
 
 Однако этот метод не очень удобен при кодогенерации, так как instance Monad будет зависет от определения Term. В той же статье предложен способ превращения этого паттерна программирования в трансформер монад\footnote{в коде Maybe заменен на Var, в соответствие со своей семантикой.}.
 
-\begin{lstlisting}
+\begin{lstlisting}[frame=single]
 data Var a = B | F a
 newtype Scope f a = Scope { fromScope :: f (Var a) }
 
@@ -27,7 +27,7 @@ instance MonadTrans Scope where
 
 Теперь мы можем написать общие функции абстрагирования по переменной и подстановки в самую внешнюю переменную терма.
 
-\begin{lstlisting}
+\begin{lstlisting}[frame=single]
 abstract :: (Functor f, Eq a) => a -> f a -> Scope f a
 abstract x xs = Scope (fmap go xs) where
   go y = y <$ guard (x /= y)
@@ -41,7 +41,7 @@ instantiate x (Scope xs) = xs >>= go where
 
 При кодогенерации нам всего лишь понадобится определить гораздо более простую монаду подстановок для ADT термов, которые выглядят теперь так:
 
-\begin{lstlisting}
+\begin{lstlisting}[frame=single]
 data Term a
   = Var a
   | App (Term a) (Term a) (Scope Term a)
