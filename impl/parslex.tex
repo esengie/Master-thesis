@@ -31,11 +31,11 @@ data LangSpec = LangSpec {
 }
 
 data Axiom = Axiom {
-  name       :: Name,
-  stab       :: Stab,
-  forallVars :: [(MetaVar, Sort)],
-  premise    :: [Judgement],
-  conclusion :: Judgement
+  name       :: Name
+, stab       :: Stab
+, forallVars :: [(MetaVar, Sort)]
+, premise    :: [Judgement]
+, conclusion :: Judgement
 }
 
 data Judgement =
