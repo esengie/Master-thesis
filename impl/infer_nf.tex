@@ -28,24 +28,32 @@ infer ctx (If v1 v2 v3 v4)
 
 Стоит отметить, что порядок или количество переменных метапеременных которые у нас есть могут отличаться от порядка и вида контекста в котором наша метапеременная должна быть. Эту проблему мы решаем приводя метапеременные к контексту данному в секции forall правила вывода, методом описанным в Секции~\ref{build_exp}.
 
-\begin{lstlisting}[caption={Искусственный пример случая несоответствия контекстов (контекст t нужно сократить до использования в предпосылке)},captionpos=b, frame=single]
+\begin{lstlisting}[caption={Искусственный пример случая несоответствия контекстов (контекст t нужно сократить до использования в предпосылке)},label={FRule},captionpos=b, frame=single]
 FRule =
-   forall S : ty, t : tm, T : ty
-     x:S, y:S |- t : T,
-     x:T |- t : bool
-     |-----------------
-     |- ff(S, t) def
+    forall S : ty, t : tm, T : ty
+      x:S, y:S |- t : T,
+      x:T |- t : bool,
+      |- gf(S, (x z).rf(T, (y r).T)) : rf(S, (x z).T)
+      |-----------------
+      |- ff(S, t) def
 
- infer ctx (Ff v1 v2)
-   = do checkT ctx TyDef v1
-        checkT (consCtx v1 ctx) TyDef (rt add1 v1)
-        v3 <- infer (consCtx (rt add1 v1) (consCtx v1 ctx))
-                (rt add1 (rt add1 v2))
-        v4 <- pure (nf v3) >>= traverse rem1 >>= traverse rem1
-        checkT ctx TyDef v4
-        v5 <- infer (consCtx v4 ctx) (rt add1 v2)
-        checkEq Bool v5
-        pure TyDef
+ infer ctx (Ff v1 v2) = do
+     checkT ctx TyDef v1
+     checkT (consCtx v1 ctx) TyDef (rt add1 v1)
+     v3 <- infer (consCtx (rt add1 v1) (consCtx v1 ctx))
+             (rt add1 (rt add1 v2))
+     v4 <- pure (nf v3) >>= traverse rem1 >>= traverse rem1
+     v5 <- infer ctx
+             (Gf v1
+                (toScope2
+                   (Rf (rt add1 (rt add1 v4))
+                      (toScope2 (rt add1 (rt add1 (rt add1 (rt add1 v4))))))))
+     checkEq (Rf v1 (toScope2 (rt add1 (rt add1 v4)))) v5
+     checkT ctx TyDef v4
+     v6 <- infer (consCtx v4 ctx) (rt add1 v2)
+     checkEq Bool v6
+     infer ctx v2
+     pure TyDef
 \end{lstlisting}
 
 Функция nf пытается паттернматчиться на терме, если это не выходит, то данная редукция неприменима\footnote{Такой паттернматчинг невозможен с использованием библиотеки bound\cite{bound}, поэтому был написан модуль SimpleBound c обычными индексами де Брейна.}.
