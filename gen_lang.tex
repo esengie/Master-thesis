@@ -1,23 +1,10 @@
 \section{Реализация}
 В этой секции описана реализация языка спецификации языков с зависимыми типами.
 
-\subsection{Парсер генераторы}
-В ходе всей работы использовались лексер и парсер генераторы alex\cite{alex} и happy\cite{happy}.
-
-Решение использовать именно парсер генераторы, а не парсер комбинаторы\cite{parsec} или другие методы синтаксического анализа было обуcловлено тем, что прогнозировались частые изменения грамматики вместе с эволюцией языка.
-
-\begin{lstlisting}[caption={Часть спецификации парсера},captionpos=b, frame=single]
-Axiom   :   Header '=' '\t' Forall '\t'
-            Premise '|---' JudgementNoEq '/t' '/t'
-              { Axiom (snd $1) (fst $1) $4 $6 $8 }
-        |   Header '=' '\t'
-            Premise '|---' JudgementNoEq '/t'
-              { Axiom (snd $1) (fst $1) [] $4 $6 }
-\end{lstlisting}
-
-Все изменения связанные с грамматикой языка проводились на уровне спецификации AST.
-
+\input{impl/parslex}
 \input{impl/toposort}
+\input{impl/sortcheck}
+\input{impl/repr}
 \input{impl/de_brujin}
 \input{impl/build_exp}
 \input{impl/infer_nf}

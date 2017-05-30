@@ -1,0 +1,41 @@
+\subsection{Модуль проверки корректности спецификации}\label{sortcheck}
+Вся проверка корректности проходит внутри монады SortCheckM, которая является стэком монад StateT и Either. Понятно, что Either используется для обработки ошибок.
+
+А State нужен, так как в ходе работы алгоритма постепенно заполняется таблица определений языка спецификации.
+
+\begin{lstlisting}[caption={Структура заполняемая модулем проверки спецификации},captionpos=b,frame=single, label={SymTab}]
+data SymbolTable = SymbolTable {
+  stabs         :: AST.Stab
+, depSorts      :: Set AST.SortName
+, simpleSorts   :: Set AST.SortName
+, funSyms       :: Map AST.Name AST.FunctionalSymbol
+, axioms        :: Map AST.Name Axiom
+, reductions    :: Map AST.Name Reduction
+, iSymAxiomMap  :: Map AST.Name AST.Name -- intro axioms of funSyms
+}
+\end{lstlisting}
+
+Изнчально заполняются множества зависимых и независимых сортов. Затем происходит проверка и заполнение определения функций.
+
+Сами аксиомы и редукции, в виду однопроходности парсера заполнены изначально некорректно. Все 0-арные функциональные символы и все метапеременные
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%

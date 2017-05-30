@@ -1,0 +1,62 @@
+\subsection{Парсер генераторы}
+В ходе всей работы использовались лексер и парсер генераторы alex\cite{alex} и happy\cite{happy}.
+
+Решение использовать именно парсер генераторы, а не парсер комбинаторы\cite{parsec} или другие методы синтаксического анализа было обуcловлено тем, что прогнозировались частые изменения грамматики вместе с эволюцией языка.
+
+\begin{lstlisting}[caption={Часть спецификации парсера},captionpos=b, frame=single]
+Axiom   :   Header '=' '\t' Forall '\t'
+            Premise '|---' JudgementNoEq '/t' '/t'
+              { Axiom (snd $1) (fst $1) $4 $6 $8 }
+        |   Header '=' '\t'
+            Premise '|---' JudgementNoEq '/t'
+              { Axiom (snd $1) (fst $1) [] $4 $6 }
+\end{lstlisting}
+
+Все изменения связанные с грамматикой языка проводились на уровне спецификации AST.
+
+\hfill
+
+Стоить заметить, что в языке спецификации отступы значительны. Это известная проблема реализации лексического/синтаксического анализа --- так как такая грамматика не является контекстно-свободной. В работе была решена с помощью монадического лексического анализатора, который преобразовывал отступы в аналог открывающих и закрывающих скобок.
+
+Синтаксический анализатор выдает АСТ языка спецификации, которое идет на вход алгоритму проверки спецификации\footnote{Можно сравнить с гораздо более структурированной структурой (см. вставку~\ref{SymTab}), выдаваемой алгоритмом на выходе.}.
+
+\begin{lstlisting}[caption={АСТ языка спецификации},captionpos=b,frame=single]
+data LangSpec = LangSpec {
+  stabilities     :: Stab
+, depSortNames    :: [SortName]
+, simpleSortNames :: [SortName]
+, funSyms         :: [FunctionalSymbol]
+, axioms          :: [Axiom]
+, reductions      :: [Reduction]
+}
+
+data Axiom = Axiom {
+  name       :: Name,
+  stab       :: Stab,
+  forallVars :: [(MetaVar, Sort)],
+  premise    :: [Judgement],
+  conclusion :: Judgement
+}
+
+data Judgement =
+  Statement {
+  jContext   :: [(VarName, Term)]
+, jTerm :: Term
+, jType :: Maybe Term    -- def as maybe
+} |
+  Equality {
+  jContext   :: [(VarName, Term)]
+, jLeft  :: Term
+, jRight  :: Term
+, jType :: Maybe Term -- equality t1 = t2 : Maybe t3
+}
+
+data Term = Var VarName
+          | Meta MetaVar
+          | FunApp Name [(Ctx, Term)]
+          | Subst Term VarName Term
+    deriving (Eq)
+\end{lstlisting}
+
+
+%%
