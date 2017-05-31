@@ -3,7 +3,7 @@
 
 Так как большинство кода используемого для проверки не зависит от специфицированного языка, мы просто модифицируем написанный от руки модуль LangTemplate. В нем нужно определить функции приведения в нормальную форму и вывода типов. Также нужно определить тип данных термов и определить монадическое действие на типе данных термов.
 
-Всё остальное либо генерируется с помощью Template Haskell\cite{TH} --- instance Traversable\cite{deriveFun}, Functor, Foldable\footnote{Foldable дает нам функцию toList, которая возвращает свободные переменные терма, Traversable позволяет применять функции swap, rem и add  к переменным обходя весь терм.}, либо написано от руки с вызовами функций nf или infer.
+Всё остальное либо генерируется с помощью Template Haskell\cite{TH} --- instance Traversable\cite{deriveFun}, Functor, Foldable (Foldable дает нам функцию toList, которая возвращает свободные переменные терма, Traversable позволяет применять функции swap, rem и add  к переменным обходя весь терм), либо написано от руки с вызовами функций nf или infer.
 
 \begin{lstlisting}[caption={Проверка типов и контексты},captionpos=b, frame=single, float,floatplacement=H]
 emptyCtx :: (Show a, Eq a) => Ctx a
