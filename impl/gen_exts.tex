@@ -1,5 +1,5 @@
 \subsection{Генерация кода}
-Генерация кода происходит с использованием библиотеки haskell-src-exts\cite{src_exts}, которая дает нам функции генерации и манипуляции АСТ Haskell.
+Генерация кода происходит с использованием библиотеки haskell-src-exts\cite{src_exts}, которая дает нам функции генерации и манипуляции АСД Haskell.
 
 Так как большинство кода используемого для проверки не зависит от специфицированного языка, мы просто модифицируем написанный от руки модуль LangTemplate. В нем нужно определить функции приведения в нормальную форму и вывода типов. Также нужно определить тип данных термов и определить монадическое действие на типе данных термов.
 
@@ -22,7 +22,7 @@ checkT ctx want t = do
 
 Представители классов Eq и Show получаются с помощью механизма DeriveEq1, DeriveShow1\cite{deriveCompat} --- так как Term имеет видами $* \rightarrow *$, для него можно определить только представителей высших классов\cite{prel_extras}. Затем мы просто пишем определения независящие от представления (см. вставку~\ref{lst_inst_eq})
 
-\begin{lstlisting}[caption={Определение представителей классов Eq и Show для представления АСТ}, captionpos=b, frame=single, float,floatplacement=H, label = {lst_inst_eq}]
+\begin{lstlisting}[caption={Определение представителей классов Eq и Show для представления АСД}, captionpos=b, frame=single, float,floatplacement=H, label = {lst_inst_eq}]
 instance Eq a => Eq (Term a) where (==) = eq1
 instance Show a => Show (Term a) where showsPrec = showsPrec1
 \end{lstlisting}
