@@ -20,12 +20,12 @@ deriveShow1 ''Term
 instance Eq a => Eq (Term a) where (==) = eq1
 instance Show a => Show (Term a) where showsPrec = showsPrec1
 
+deriveTraversable ''Term
+
 instance Functor Term where
         fmap = fmapDefault
 instance Foldable Term where
         foldMap = foldMapDefault
-
-deriveTraversable ''Term
 
 instance Monad Term where
         Var v1 >>= f = f v1
@@ -42,19 +42,13 @@ instance Monad Term where
 checkT :: (Show a, Eq a) => Ctx a -> Type a -> Term a -> TC ()
 checkT ctx want t
   = do have <- infer ctx t
-       when (nf have /= nf want) $
-         Left $
-           "type mismatch, have: " ++ (show have) ++ " want: " ++ (show want)
-
+       when (nf have /= nf want) $ Left $
+          "type mismatch, have: " ++ (show have) ++ " want: " ++ (show want)
 checkEq :: (Show a, Eq a) => Term a -> Term a -> TC ()
 checkEq want have
-  = do when (nf have /= nf want) $
-         Left $
+  = do when (nf have /= nf want) $ Left $
            "Terms are unequal, left: " ++
              (show have) ++ " right: " ++ (show want)
-
-report :: String -> TC (Type a)
-report nm = throwError $ "Can't have " ++ nm ++ " : " ++ nm
 
 emptyCtx :: (Show a, Eq a) => Ctx a
 emptyCtx x = Left $ "Variable not in scope: " ++ show x
@@ -65,7 +59,7 @@ consCtx ty ctx (F a) = (F <$>) <$> ctx a
 
 infer :: (Show a, Eq a) => Ctx a -> Term a -> TC (Type a)
 infer ctx (Var v1) = ctx v1
-infer ctx TyDef = report "TyDef"
+infer ctx TyDef = throwError $ "Can't have TyDef : TyDef"
 infer ctx al@(App v1 v2 v3)
   = do v4 <- infer ctx v2
        v5 <- pure (nf v4)
@@ -149,4 +143,4 @@ rt f x = runIdentity (traverse f x)
 nf1 x = (toScope $ nf $ fromScope x)
 
 data Cnt = Bot | U (Cnt)
-         deriving (Eq, Show)
+  deriving (Eq, Show)

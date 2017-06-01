@@ -22,7 +22,7 @@ checkT ctx want t = do
 
 Представители классов Eq и Show получаются с помощью механизма DeriveEq1, DeriveShow1\cite{deriveCompat} --- так как Term имеет кайнд $* \rightarrow *$, для него можно определить только представителей высших классов\cite{prel_extras}. Затем мы просто пишем определения независящие от представления:
 
-\begin{lstlisting}[frame=single, float,floatplacement=H]
+\begin{lstlisting}[caption={Определение представителей классов Eq и Show для представления АСТ}, captionpos=b, frame=single, float,floatplacement=H]
 instance Eq a => Eq (Term a) where (==) = eq1
 instance Show a => Show (Term a) where showsPrec = showsPrec1
 \end{lstlisting}
