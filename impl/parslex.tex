@@ -3,8 +3,7 @@
 
 Решение использовать именно генераторы синтаксических анализаторов, а не парсер комбинаторы\cite{parsec} или другие методы синтаксического анализа было обуcловлено тем, что прогнозировались частые изменения грамматики вместе с эволюцией языка.
 
-
-\begin{lstlisting}[caption={Часть спецификации синтаксического анализатора},captionpos=b, frame=single]
+\begin{lstlisting}[caption={Часть спецификации синтаксического анализатора},captionpos=b, frame=single, label={lst_happy}]
 Axiom   :   Header '=' '\t' Forall '\t'
             Premise '|---' JudgementNoEq '/t' '/t'
               { Axiom (snd $1) (fst $1) $4 $6 $8 }
@@ -13,53 +12,56 @@ Axiom   :   Header '=' '\t' Forall '\t'
               { Axiom (snd $1) (fst $1) [] $4 $6 }
 \end{lstlisting}
 
-
-Все изменения связанные с грамматикой языка проводились на уровне спецификации AST.
+Все изменения связанные с грамматикой языка проводились на уровне спецификации АСД. По вставке~\ref{lst_happy} можно судить, что изменения грамматики непосредственно ложатся на изменения спецификации синтаксического анализатора.
 
 \hfill
 
 Стоить заметить, что в языке спецификации отступы значительны. Это известная проблема реализации лексического/синтаксического анализа --- так как такая грамматика не является контекстно-свободной. В работе была решена с помощью монадического лексического анализатора, который преобразовывал отступы в аналог открывающих и закрывающих скобок.
 
-\begin{minipage}{\linewidth}
-\begin{lstlisting}[caption={АСД языка спецификации},captionpos=b,frame=single]
-data LangSpec = LangSpec {
-  stabilities     :: Stab
-, depSortNames    :: [SortName]
-, simpleSortNames :: [SortName]
-, funSyms         :: [FunctionalSymbol]
-, axioms          :: [Axiom]
-, reductions      :: [Reduction]
-}
-
-data Axiom = Axiom {
-  name       :: Name
-, stab       :: Stab
-, forallVars :: [(MetaVar, Sort)]
-, premise    :: [Judgement]
-, conclusion :: Judgement
-}
-
-data Judgement =
-  Statement {
-  jContext   :: [(VarName, Term)]
-, jTerm :: Term
-, jType :: Maybe Term    -- def as maybe
-} |
-  Equality {
-  jContext   :: [(VarName, Term)]
-, jLeft  :: Term
-, jRight  :: Term
-, jType :: Maybe Term -- equality t1 = t2 : Maybe t3
-}
-
-data Term = Var VarName
-          | Meta MetaVar
-          | FunApp Name [(Ctx, Term)]
-          | Subst Term VarName Term
-    deriving (Eq)
-\end{lstlisting}
-\end{minipage}
-
-Синтаксический анализатор выдает АСД языка спецификации, которое идет на вход алгоритму проверки спецификации\footnote{Можно сравнить с гораздо более структурированной структурой (см. вставку~\ref{SymTab}), выдаваемой алгоритмом на выходе.}.
+% \begin{minipage}{\linewidth}
+% \begin{lstlisting}[caption={АСД языка спецификации},captionpos=b,frame=single, label={lst_langspec}]
+% data LangSpec = LangSpec {
+%   stabilities     :: Stab
+% , depSortNames    :: [SortName]
+% , simpleSortNames :: [SortName]
+% -- These are language constructs
+% , funSyms         :: [FunctionalSymbol]
+% , axioms          :: [Axiom]
+% , reductions      :: [Reduction]
+% }
+%
+% -- These
+% data Axiom = Axiom {
+%   name       :: Name
+% , stab       :: Stab
+% , forallVars :: [(MetaVar, Sort)]
+% , premise    :: [Judgement]
+% , conclusion :: Judgement
+% }
+%
+% data Judgement =
+%   Statement {
+%   jContext   :: [(VarName, Term)]
+% , jTerm :: Term
+% , jType :: Maybe Term    -- def as maybe
+% } |
+%   Equality {
+%   jContext   :: [(VarName, Term)]
+% , jLeft  :: Term
+% , jRight  :: Term
+% , jType :: Maybe Term -- equality t1 = t2 : Maybe t3
+% }
+%
+% data Term = Var VarName
+%           | Meta MetaVar
+%           | FunApp Name [(Ctx, Term)]
+%           | Subst Term VarName Term
+%     deriving (Eq)
+% \end{lstlisting}
+% \end{minipage}
+%
+% АСД языка спецификации, после синтаксического анализа имеет представление, частично написанное во вставке~\ref{lst_langspec}. По представлению можно судить, что никаких взяимосвязей между конструкциями
+%
+% Синтаксический анализатор выдает АСД языка спецификации, которое идет на вход алгоритму проверки спецификации\footnote{Можно сравнить с гораздо более структурированной структурой (см. вставку~\ref{SymTab}), выдаваемой алгоритмом на выходе.}.
 
 %%
