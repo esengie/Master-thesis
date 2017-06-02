@@ -328,7 +328,3 @@ literate=%
 
 \usepackage[dvipsnames]{xcolor}
 \usepackage{fancyvrb}
-
-\usepackage{etoolbox}
-\BeforeBeginEnvironment{listingsutf8}{\par\noindent\begin{minipage}{\linewidth}}
-\AfterEndEnvironment{listingsutf8}{\end{minipage}\par\addvspace{\topskip}}
