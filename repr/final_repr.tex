@@ -1,4 +1,17 @@
-\subsection{Представление термов}
+\subsubsection{Представление термов}\label{final_repr}
+
+В итоге, было выбрано представление описанное в Подразделе~\ref{de_brujin_impl}.
+
+Осталось только описать, как можно реализовать равенство для термов вида `\lstinline{Term a}'. Как видим, вид этого типа в Haskell $* \rightarrow *$, и для него можно определить только представителей высших классов\cite{prel_extras} Eq1 и Show1.
+
+Так как равенство термов просто структурное, его возможно сгенерировать с помощью Template Haskell\cite{TH}. Представители классов Eq и Show получаются с помощью механизма DeriveEq1, DeriveShow1\cite{deriveCompat}.
+
+Затем мы просто пишем определения представителей, независящие от представления (см. вставку~\ref{lst_inst_eq})
+
+\begin{lstlisting}[caption={Определение представителей классов Eq и Show для представления АСД}, captionpos=b, frame=single, float,floatplacement=H, label = {lst_inst_eq}]
+instance Eq a => Eq (Term a) where (==) = eq1
+instance Show a => Show (Term a) where showsPrec = showsPrec1
+\end{lstlisting}
 
 Таким образом использование полиморфной рекурсии для выражения индексов де Брейна дает нам такие преимущества:
 \begin{itemize}
