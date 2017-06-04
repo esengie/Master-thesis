@@ -5,8 +5,11 @@ FunctionalSymbols :
   false : tm
   true : tm
   if : (ty,1)*(tm,0)*(tm,0)*(tm,0) -> tm
+
   lam : (ty,0)*(tm,1) -> tm
+
   app : (tm,0)*(tm,0)*(ty,1) -> tm
+
   pi : (ty,0)*(ty,1) -> ty
 
 Axioms :
@@ -20,7 +23,8 @@ Axioms :
     forall t : tm, t1 : tm, t2 : tm, x.A : ty
       x : bool |- A def, |- t1 : A[x:=true],
       |- t2 : A[x:=false], |- t : bool
-      |--- |- if(x.A, t, t1, t2) : A[x:=t]
+      |---------------------------------------
+       |- if(x.A, t, t1, t2) : A[x:=t]
   K-Pi =
     forall T1 : ty , x.T2 : ty
       x : T1 |- T2 def |--- |- pi(T1, x.T2) def
@@ -29,7 +33,9 @@ Axioms :
       x : S |- t : T |--- |- lam(S , x.t) : pi(S , x.T)
   TApp =
     forall t1 : tm , t2 : tm , S : ty, x.T : ty
-      |- t1 : pi(S, x.T) , |- t2 : S , x : S |- T def |---- |- app(t1 , t2, x.T) : T[x:=t2]
+      |- t1 : pi(S, x.T) , |- t2 : S , x : S |- T def
+      |------------------------------------------------
+      |- app(t1 , t2, x.T) : T[x:=t2]
 Reductions :
   Beta =
     forall x.b : tm, A : ty, a : tm, z.T : ty
