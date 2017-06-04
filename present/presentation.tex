@@ -66,10 +66,26 @@
 \usepackage{bussproofs}
 \usepackage{stmaryrd}
 
+\newenvironment{scprooftree}[1]%
+  {\gdef\scalefactor{#1}\begin{center}\proofSkipAmount \leavevmode}%
+  {\scalebox{\scalefactor}{\DisplayProof}\proofSkipAmount \end{center} }
+
+
 \usepackage{fontspec}
 \setmainfont[Mapping=tex-text]{CMU Serif}
 \setsansfont{CMU Sans Serif}
 \setmonofont{CMU Typewriter Text}
+
+
+\newcommand{\IFF}{\begin{scprooftree}{0.92}
+\AxiomC{$\Gamma, x : Bool \vdash T$}
+\AxiomC{$\Gamma \vdash t : Bool$}
+\AxiomC{$\Gamma \vdash a : T[x:=True]$}
+\AxiomC{$\Gamma \vdash b : T[x:=False]$}
+\QuaternaryInfC{$\Gamma \vdash if(t, T, a, b) : T[x:=t] $}
+% \DisplayProof
+\end{scprooftree}
+}
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
