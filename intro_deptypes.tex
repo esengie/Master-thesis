@@ -27,7 +27,7 @@ head (x:_) = x
 Языки с зависимыми типами обычно задаются через формализм написаний правил вывода (для примера формального описания языка целиком см. Раздел~\ref{lang_spec}). Рассмотрим пример правила вывода:
 
 \begin{center}
-\AxiomC{$\Gamma, x : S \vdash T\ type $}
+\AxiomC{$\Gamma, x : S \vdash T $}
 \AxiomC{$\Gamma, \vdash f : \Pi(S, T) $}
 \AxiomC{$\Gamma \vdash t : S $}
 \TrinaryInfC{$\Gamma \vdash app(T, f, t) : T[x:=t]$}
