@@ -328,3 +328,4 @@ literate=%
 
 \usepackage[dvipsnames]{xcolor}
 \usepackage{fancyvrb}
+\usepackage{caption}
