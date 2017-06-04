@@ -8,6 +8,7 @@ FunctionalSymbols :
   lam : (ty,0)*(tm,1) -> tm
   app : (tm,0)*(tm,0)*(ty,1) -> tm
   pi : (ty,0)*(ty,1) -> ty
+
 Axioms :
   Tr =
     |--- |- true : bool
