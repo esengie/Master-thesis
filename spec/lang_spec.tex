@@ -50,11 +50,6 @@
 \AxiomC{$\Gamma \vdash A \equiv B$}
 \BinaryInfC{$\Gamma \vdash a : B$}
 \DisplayProof
-\begin{figure}[!h]
-\captionsetup{name={Список правил}}
-\caption{Правила, которые мы считаем верными во всех языках}
-\label{always_right}
-\end{figure}
 \end{center}
 
 После описания правил вывода, если мы хотим описать, как этот язык вычислять, мы записываем правила редукции. Ниже представлены оба правила редукции для языка Bool.
@@ -119,7 +114,32 @@ FunctionalSymbols:
 
 После описания сортов и конструкций языка пользователь должен задать правила вывода, по одной на каждую конструкцию (причина объяснена в Разделе~\ref{constraints}, в Пункте~\ref{one_per_fun}).
 
-Четыре правила вывода в Списке правил~\ref{always_right} всегда верны во всех языках, которые мы встречали в литературе, поэтому в языке спецификации они верны по умолчанию и их не нужно указывать в языке спецификации.
+Четыре правила вывода представленные ниже верны во всех языках, которые мы встречали в литературе, поэтому в языке спецификации они верны по умолчанию и их не нужно указывать в языке спецификации.
+
+\begin{center}
+\AxiomC{}
+\UnaryInfC{$\vdash$}
+\DisplayProof
+\quad
+\AxiomC{$\Gamma \vdash A$}
+\RightLabel{, $x \notin \Gamma$}
+\UnaryInfC{$\Gamma, x : A \vdash$}
+\DisplayProof
+\quad
+\AxiomC{$\Gamma \vdash$}
+\RightLabel{, $x : A \in \Gamma$}
+\UnaryInfC{$\Gamma \vdash x : A$}
+\DisplayProof
+\end{center}
+
+\medskip
+
+\begin{center}
+\AxiomC{$\Gamma \vdash a : A$}
+\AxiomC{$\Gamma \vdash A \equiv B$}
+\BinaryInfC{$\Gamma \vdash a : B$}
+\DisplayProof
+\end{center}
 
 \textit{Правилом вывода конструкции} --- называется правило вывода такое, что в его заключении наиболее внешней является конструкция ей соответсвуюшая. В языке Bool есть по одному правилу вывода на каждую конструкцию.
 
