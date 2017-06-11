@@ -56,7 +56,7 @@
 \setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
 }
 
-\usepackage[utf8]{inputenc}
+\usepackage{inputenc}
 \usepackage{listings}
 \usepackage{polyglossia}
 \setdefaultlanguage{russian}
@@ -76,7 +76,10 @@
 \setmainfont[Mapping=tex-text]{CMU Serif}
 \setsansfont{CMU Sans Serif}
 \setmonofont{CMU Typewriter Text}
+\usepackage{mdwlist}
+% \usepackage{enumitem}
 
+% \newcommand\tab[1][0.8cm]{\hspace*{#1}}
 
 \newcommand{\IFF}{\begin{scprooftree}{0.92}
 \AxiomC{$\Gamma, x : Bool \vdash T$}
